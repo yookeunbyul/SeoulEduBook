@@ -1,0 +1,342 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap");
+
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-slide {
+  text-align: center;
+  color: #3e4958;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #3e4958;
+  padding: 0.5rem 2rem;
+  border-radius: 2rem;
+  cursor: pointer;
+  width: fit-content !important;
+  font-size: 0.9rem;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  letter-spacing: -1.25px;
+  font-family: "Noto Sans KR", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
+header {
+  /* border: 1px solid blue; */
+}
+
+.headerWrap {
+  max-width: 1400px;
+  width: 80%;
+  margin: auto;
+  /* border: 1px solid red; */
+  padding: 1.5rem 0;
+  display: flex;
+  position: relative;
+  align-items: center;
+  gap: 0.5rem;
+  padding-left: 0.5rem;
+}
+
+h1 a {
+  background: url("./img/logo.png") no-repeat center;
+  background-size: contain;
+  color: transparent;
+  position: relative;
+  left: 0;
+  z-index: 9999;
+  white-space: nowrap;
+}
+
+.menuBtn {
+  width: 32px;
+  height: 32px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  display: none;
+}
+
+.menuBtn > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+main {
+  /* border: 1px solid red; */
+}
+
+.wrap {
+  max-width: 1400px;
+  width: 80%;
+  margin: auto;
+  padding: 0.5rem;
+}
+
+.sec1 {
+  /* border: 1px solid red; */
+  display: flex;
+  gap: 2rem;
+  margin-top: 30px;
+}
+
+.inputArea {
+  /* border: 1px solid blue; */
+  width: 40%;
+  display: flex;
+  align-items: center;
+  padding-left: 0.5rem;
+}
+
+.itemWrap {
+  border: 1px solid #d3d3d3;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  border-radius: 0.5rem;
+  box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.1);
+}
+
+.itemWrap > select {
+  border: none;
+  color: #3e4958;
+  padding: 0.8rem 1rem;
+  font-size: 0.9rem;
+}
+
+.itemWrap > input {
+  border: none;
+  outline: none;
+  width: 80%;
+  padding-left: 1.5rem;
+  color: #3e4958;
+  font-size: 0.9rem;
+}
+
+.itemWrap > button {
+  border: none;
+  background-color: #5e81f4;
+  padding: 0.8rem 1rem;
+  border-radius: 0 0.5rem 0.5rem 0;
+  cursor: pointer;
+}
+
+.itemWrap > button > img {
+  width: 26px;
+  height: 26px;
+}
+
+.title {
+  /* border: 1px solid blue; */
+  width: 60%;
+}
+
+.title h2 {
+  text-align: right;
+  font-weight: 400;
+}
+
+.point {
+  font-weight: 600;
+  color: #5e81f4;
+}
+
+.sec2 {
+  /* border: 1px solid red; */
+  display: flex;
+  gap: 1rem;
+  margin-top: 30px;
+}
+
+.list {
+  /* border: 1px solid blue; */
+  width: 40%;
+  overflow-y: scroll;
+  height: 70vh;
+  padding: 0.5rem 2rem 0 0.5rem;
+}
+
+.list::-webkit-scrollbar {
+  /* 스크롤바의 너비 */
+  width: 10px;
+}
+.list::-webkit-scrollbar-thumb {
+  /* 스크롤바의 길이 */
+  height: 30%;
+  /* 스크롤바의 색상 */
+  background: #d9d9d9;
+  border-radius: 10px;
+}
+
+.list::-webkit-scrollbar-track {
+  /*스크롤바 뒷 배경 색상*/
+  background: white;
+  border-radius: 10px;
+}
+
+.map {
+  /* border: 1px solid blue; */
+  width: 60%;
+  height: 70vh;
+  padding-top: 0.5rem;
+}
+
+.map > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 1rem;
+}
+
+.serviceItem {
+  /* border: 1px solid red; */
+  display: flex;
+  padding: 0.5rem;
+  border-radius: 0.8rem;
+  box-shadow: 1px 1px 10px 0px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1rem;
+  cursor: pointer;
+}
+
+.thumnailWrap {
+  width: 45%;
+}
+
+.thumnailWrap > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0.5rem;
+}
+
+.serviceDetailWrap {
+  width: 55%;
+  padding: 0.5rem 1rem 0.5rem 1rem;
+  /* border: 1px solid red; */
+}
+
+.serviceTitle {
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.age {
+  font-size: 15px;
+  color: #666666;
+}
+.loca {
+  font-size: 13px;
+  color: #666666;
+}
+.day {
+  font-size: 13px;
+  color: #666666;
+}
+
+.detail {
+  padding-top: 2rem;
+}
+
+.userWrap {
+  display: flex;
+  margin-bottom: 0.3rem;
+}
+
+.locaWrap {
+  display: flex;
+  margin-bottom: 0.3rem;
+}
+
+.dayWrap {
+  display: flex;
+}
+
+.iconWrap {
+  width: 15px;
+  height: 15px;
+  margin-right: 5px;
+}
+.iconWrap > img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* 769px 이하 */
+
+@media (max-width: 768px) {
+  .headerWrap {
+    max-width: 768px;
+    width: 90%;
+    margin: auto;
+    padding-left: 0.5rem;
+  }
+  .menuBtn {
+    display: block;
+    position: absolute;
+    right: 0;
+    padding-right: 0.5rem;
+  }
+  .wrap {
+    max-width: 768px;
+    width: 90%;
+    margin: auto;
+  }
+  .sec1 {
+    flex-direction: column-reverse;
+  }
+  .inputArea {
+    width: 100%;
+    padding-right: 0.5rem;
+  }
+  .title {
+    width: 100%;
+  }
+  .title h2 {
+    text-align: left;
+    padding-left: 0.5rem;
+    padding-right: 0.2rem;
+  }
+  .sec2 {
+    display: block;
+  }
+  .list {
+    width: 100%;
+    overflow-y: hidden;
+    /* border: 1px solid red; */
+    padding-right: 0.5rem;
+    overflow-y: scroll;
+  }
+  .list::-webkit-scrollbar {
+    /* 스크롤바의 너비 */
+    display: none;
+  }
+  .map {
+    width: 100%;
+    display: none;
+  }
+  .swiper {
+    display: none !important;
+  }
+  .serviceItem {
+    display: block;
+  }
+  .thumnailWrap {
+    width: 100%;
+  }
+  .serviceDetailWrap {
+    width: 100%;
+  }
+  .detail {
+    padding-top: 1.5rem;
+  }
+}
