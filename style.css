@@ -35,6 +35,11 @@
   color: white;
 }
 
+html,
+body {
+  height: 100%;
+}
+
 * {
   padding: 0;
   margin: 0;
@@ -112,6 +117,7 @@ h1 a > img {
   text-align: center;
   color: #3e4958;
   display: flex;
+  border: none;
   justify-content: center;
   align-items: center;
   background-color: white;
@@ -368,7 +374,69 @@ main {
   color: white;
 }
 
-/* 769px 이하 */
+.hamber-menu {
+  display: none;
+  /* border: 1px solid red; */
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  z-index: 9999;
+}
+.hamber-menu.show {
+  display: block;
+}
+.closeWrap {
+  /* border: 1px solid blue; */
+  padding: 2rem 1.5rem;
+  display: flex;
+  justify-content: right;
+}
+.close-img-btn {
+  width: 18px;
+  height: 18px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+.close-img-wrap > img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.hamber-menu-all {
+  /* border: 1px solid red; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+  position: fixed; /* 화면에서 스크롤과 무관하게 고정 */
+  top: 50%; /* 수직으로 중앙에 배치 */
+  left: 50%; /* 수평으로 중앙에 배치 */
+  transform: translate(-50%, -50%); /* 중앙에서 정확히 가운데로 이동 */
+}
+.hamber-menu-btn {
+  text-align: center;
+  color: #3e4958;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  padding: 0.5rem 2rem;
+  border-radius: 2rem;
+  cursor: pointer;
+  width: 100%;
+  font-size: 0.9rem;
+  border: 1px solid #3e4958;
+}
+.hamber-menu-btn:hover {
+  background-color: #5e81f4;
+  border: 0;
+  color: white;
+}
+
+/* 768px 이하 */
 
 @media (max-width: 768px) {
   .headerWrap {
