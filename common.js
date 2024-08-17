@@ -6,6 +6,37 @@ let page = 1; //현재 페이지
 let totalResults = 0; //총 리스트 수
 let groupSize = 3; //한번에 보여지는 페이지
 
+// ui
+
+const $logo = document.getElementById("logo");
+const $menuAll = document.querySelector(".menuAll");
+
+function handleLogoClick(e) {
+  e.preventDefault();
+  $logo.classList.toggle("rotate");
+  $menuAll.classList.toggle("show");
+}
+
+function checkScreenSize() {
+  const screenWidth = window.innerWidth;
+
+  if (screenWidth <= 768) {
+    //768보다 같거나 작으면
+    $logo.removeEventListener("click", handleLogoClick);
+  } else {
+    //크면
+    $logo.addEventListener("click", handleLogoClick);
+  }
+}
+
+//초기 로드시 화면 크기 확인
+checkScreenSize();
+
+//화면 크기 변경 시마다 확인
+window.addEventListener("resize", checkScreenSize);
+
+// api
+
 const fetchList = async () => {
   let serviceList = [];
   const res = await fetch(
@@ -47,7 +78,10 @@ const createHtml = (service) => {
                     <div class="iconWrap">
                       <img src="./img/calendar.png" alt="" />
                     </div>
-                    <div class="day">2023-12-27 ~ 2025-02-08</div>
+                    <div class="day">${service.SVCOPNBGNDT.slice(
+                      0,
+                      10
+                    )} ~ ${service.SVCOPNENDDT.slice(0, 10)}</div>
                   </div>
                 </div>
               </div>
@@ -61,4 +95,5 @@ const renderList = (serviceList) => {
   document.getElementById("listCon").innerHTML = serviceHtml;
 };
 
+//초기 로드할 때
 fetchList();
