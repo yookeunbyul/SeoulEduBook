@@ -399,13 +399,14 @@ main {
   justify-content: right;
 }
 .close-img-btn {
+  /* border: 1px solid red; */
   width: 18px;
   height: 18px;
   border: none;
   background-color: transparent;
   cursor: pointer;
 }
-.close-img-wrap > img {
+.close-img-btn > img {
   width: 100%;
   height: 100%;
   object-fit: contain;
