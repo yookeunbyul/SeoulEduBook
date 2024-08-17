@@ -82,5 +82,24 @@ https://www.figma.com/design/YAJQURZg82WWhZElTCZECN/7%ED%8C%80-%EC%95%BD%EC%8B%9
 ### 트러블 슈팅
 
 - 08/16 : Uncaught SyntaxError: Cannot use import statement outside a module
--
+
+  ```
+  원인
+  HTML에서 JavaScript를 로드할 때, <script> 태그에 type="module" 속성이 없으면 JavaScript가 일반 스크립트로 간주됩니다. 이 경우, import와 export 문을 사용할 수 없습니다.
+
+  해결 방법
+  <script type="module" src="./common.js" defer></script>
+  type="module"을 적어줍니다.
+  ```
+
+- 08/18 : Uncaught ReferenceError: movePage is not defined;
+
+  ```
+  원인
+  이 문제는 주로 JavaScript 모듈(import/export)을 사용하는 경우 발생합니다. 모듈 시스템에서는 JavaScript 코드를 기본적으로 모듈 범위로 보호하여, 각 모듈에서 정의된 변수나 함수는 다른 스크립트나 전역 범위에서 접근할 수 없습니다.
+
+  해결 방법
+  movePage 함수를 HTML에서 사용할 수 있도록 하기 위해, 함수가 전역 범위에 노출되도록 해야 합니다.
+  ```
+
 -
