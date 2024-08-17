@@ -81,6 +81,6 @@ https://www.figma.com/design/YAJQURZg82WWhZElTCZECN/7%ED%8C%80-%EC%95%BD%EC%8B%9
 
 ### 트러블 슈팅
 
--
+- 08/16 : Uncaught SyntaxError: Cannot use import statement outside a module
 -
 -
