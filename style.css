@@ -353,6 +353,9 @@ main {
 .arrow {
   width: 18px;
   height: 18px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
 }
 
 .arrow > img {
@@ -366,6 +369,8 @@ main {
   padding: 0 0.5rem;
   color: #3e4958;
   font-size: 1.1rem;
+  background-color: white;
+  cursor: pointer;
 }
 
 .page.on {
