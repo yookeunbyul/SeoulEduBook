@@ -135,8 +135,6 @@ const pagination = () => {
     }" onClick='movePage(${i})'>${i}</button>`;
   }
 
-  console.log(page);
-
   paginationHtml += `
       <button class="arrow" ${
         page >= totalPage ? "disabled" : ""
@@ -193,6 +191,45 @@ const renderList = (serviceList) => {
     .join("");
   document.getElementById("listCon").innerHTML = serviceHtml;
 };
+
+const slides = document.querySelectorAll(".swiper-slide");
+const menuAllBtns = document.querySelectorAll(".menuAll-btn");
+const hamberMenuBtns = document.querySelectorAll(".hamber-menu-btn");
+
+function onClickCategory(e) {
+  //클릭한 버튼
+  const target = e.target;
+  const keyword = target.innerText.split("/")[0];
+
+  //모든 버튼 그룹을 하나의 배열로 합치기
+  const allButtons = [...slides, ...menuAllBtns, ...hamberMenuBtns];
+
+  //모든 버튼을 다 돌면서
+  allButtons.forEach((btn) => {
+    //우선 있는 on 클래스 다 삭제시키고
+    btn.classList.remove("on");
+
+    //클릭한 버튼(keyword)과 동일한 텍스트를 가진 버튼에 'on' 클래스 추가
+    if (btn.innerText.split("/")[0] === keyword) {
+      btn.classList.add("on");
+    }
+  });
+
+  //전체이면 그냥 빈 문자열 아니면 keyword
+  searchParams.minclass = keyword === "전체" ? "" : keyword;
+
+  //리스트 불러오기
+  fetchList();
+
+  //카테고리 전체보기로 검색할 시 누르고 나서 다시 닫아줘야됨
+  $logo.classList.remove("rotate");
+  $menuAll.classList.remove("show");
+}
+
+//모든 버튼에 이벤트리스너 붙이기
+[...slides, ...menuAllBtns, ...hamberMenuBtns].forEach((btn) => {
+  btn.addEventListener("click", onClickCategory);
+});
 
 //초기 로드할 때
 fetchList();

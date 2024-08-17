@@ -35,6 +35,12 @@
   color: white;
 }
 
+.swiper-slide.on {
+  background-color: #5e81f4;
+  border: 0;
+  color: white;
+}
+
 html,
 body {
   height: 100%;
@@ -130,6 +136,12 @@ h1 a > img {
 }
 
 .menuAll-btn:hover {
+  background-color: #5e81f4;
+  border: 0;
+  color: white;
+}
+
+.menuAll-btn.on {
   background-color: #5e81f4;
   border: 0;
   color: white;
@@ -437,6 +449,11 @@ main {
   border: 1px solid #3e4958;
 }
 .hamber-menu-btn:hover {
+  background-color: #5e81f4;
+  border: 0;
+  color: white;
+}
+.hamber-menu-btn.on {
   background-color: #5e81f4;
   border: 0;
   color: white;
