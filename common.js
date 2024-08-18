@@ -65,6 +65,16 @@ function checkScreenSize() {
   }
 }
 
+function addDetail() {
+  document.querySelector(".detailCon").classList.add("show");
+  document.querySelector(".reserCon").classList.add("show");
+}
+
+function removeDetail() {
+  document.querySelector(".detailCon").classList.remove("show");
+  document.querySelector(".reserCon").classList.remove("show");
+}
+
 //초기 로드시 화면 크기 확인
 checkScreenSize();
 
@@ -105,6 +115,13 @@ const movePage = (pageNum) => {
   page = pageNum;
   searchParams.pageBegin = (pageNum - 1) * pageSize + 1;
   searchParams.pageEnd = pageNum * pageSize;
+
+  //페이지 이동하면 디테일창 닫아
+  removeDetail();
+
+  //리스트 내부 스크롤을 상단으로 이동
+  $list.scrollTop = 0;
+
   fetchList();
 };
 
@@ -150,7 +167,16 @@ const createHtml = (service) => {
     service.SVCNM.trim().length > 30
       ? service.SVCNM.trim().substring(0, 31) + "..."
       : service.SVCNM.trim();
+
+  let conditionClass =
+    service.SVCSTATNM.trim() === "일시중지"
+      ? "red"
+      : service.SVCSTATNM.trim() === "예약마감" ||
+        service.SVCSTATNM.trim() === "접수종료"
+      ? "gray"
+      : "";
   return `<div class="serviceItem">
+              <div class="condition ${conditionClass}">${service.SVCSTATNM.trim()}</div>
               <div class="thumnailWrap">
                 <img src="${service.IMGURL}" alt-="" />
               </div>
@@ -195,6 +221,7 @@ const renderList = (serviceList) => {
 const slides = document.querySelectorAll(".swiper-slide");
 const menuAllBtns = document.querySelectorAll(".menuAll-btn");
 const hamberMenuBtns = document.querySelectorAll(".hamber-menu-btn");
+const $list = document.querySelector(".list");
 
 function onClickCategory(e) {
   //클릭한 버튼
@@ -218,17 +245,41 @@ function onClickCategory(e) {
   //전체이면 그냥 빈 문자열 아니면 keyword
   searchParams.minclass = keyword === "전체" ? "" : keyword;
 
+  //페이지 번호를 1로 리셋
+  page = 1;
+  searchParams.pageBegin = (page - 1) * pageSize + 1;
+  searchParams.pageEnd = page * pageSize;
+
+  //리스트 내부 스크롤을 상단으로 이동
+  $list.scrollTop = 0;
+
   //리스트 불러오기
   fetchList();
 
   //카테고리 전체보기로 검색할 시 누르고 나서 다시 닫아줘야됨
   $logo.classList.remove("rotate");
   $menuAll.classList.remove("show");
+
+  //카테고리 바뀌면 디테일 창도 닫아줘
+  removeDetail();
 }
 
 //모든 버튼에 이벤트리스너 붙이기
 [...slides, ...menuAllBtns, ...hamberMenuBtns].forEach((btn) => {
   btn.addEventListener("click", onClickCategory);
+});
+
+const $listCon = document.getElementById("listCon");
+
+//이벤트 위임 => 모든 자식 콘텐츠에 리스너를 박는게 아니라 부모 요소에 붙여준다
+$listCon.addEventListener("click", (e) => {
+  if (e.target.closest(".serviceItem")) {
+    const item = e.target.closest(".serviceItem");
+    console.log(item);
+
+    //리스트 클릭하면 디테일창 열어
+    addDetail();
+  }
 });
 
 //초기 로드할 때

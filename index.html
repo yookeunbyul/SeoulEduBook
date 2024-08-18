@@ -11,6 +11,8 @@
       href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
     />
     <script type="module" src="./common.js" defer></script>
+    <!-- Kakao 지도 SDK 스크립트 -->
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=621b20595b483a42129195cf4245094c"></script>
   </head>
   <body>
     <header>
@@ -81,7 +83,25 @@
             <div class="pagination"></div>
           </div>
           <div class="map">
-            <img src="./img/map.png" />
+            <div id="map" style="width:100%;height:100%;border-radius:0.8rem;"></div>
+            <div class="detailCon">
+              <p>상세내용이 들어갈 것입니다.상세내용이 들어갈 것입니다.상세내용이 들어갈 것입니다.상세내용이 들어갈 것입니다.상세내용이 들어갈 것입니다.상세내용이 들어갈 것입니다.상세내용이 들어갈 것입니다.상세내용이 들어갈 것입니다.상세내용이 들어갈 것입니다.상세내용이 들어갈 것입니다.상세내용이 들어갈 것입니다.상세내용이 들어갈 것입니다.상세내용이 들어갈 것입니다.상세내용이 들어갈 것입니다.상세내용이 들어갈 것입니다.상세내용이 들어갈 것입니다.상세내용이 들어갈 것입니다.상세내용이 들어갈 것입니다.상세내용이 들어갈 것입니다.상세내용이 들어갈 것입니다.상세내용이 들어갈 것입니다.상세내용이 들어갈 것입니다.상세내용이 들어갈 것입니다.상세내용이 들어갈 것입니다.상세내용이 들어갈 것입니다.상세내용이 들어갈 것입니다.상세내용이 들어갈 것입니다.상세내용이 들어갈 것입니다.상세내용이 들어갈 것입니다.상세내용이 들어갈 것입니다.상세내용이 들어갈 것입니다.</p>
+            </div>
+            <div class="reserCon">
+              <button class="reserBtn">예약하러가기</button>
+            </div>
+            <!-- 지도 초기화 스크립트 -->
+            <script>
+              document.addEventListener("DOMContentLoaded", function () {
+                var container = document.getElementById('map');
+                var options = {
+                  center: new kakao.maps.LatLng(37.5665, 126.9780),
+                  level: 3
+                };
+            
+                var map = new kakao.maps.Map(container, options);
+              });
+            </script>
           </div>
         </section>
       </div>
@@ -119,7 +139,5 @@
         spaceBetween: 15,
       });
     </script>
-
-    
   </body>
 </html>

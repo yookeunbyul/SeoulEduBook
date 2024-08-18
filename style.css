@@ -255,7 +255,7 @@ main {
 
 .list::-webkit-scrollbar-track {
   /*스크롤바 뒷 배경 색상*/
-  background: white;
+  background: transparent;
   border-radius: 10px;
 }
 
@@ -263,6 +263,9 @@ main {
   /* border: 1px solid blue; */
   width: 60%;
   height: 70vh;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 .map > img {
@@ -272,6 +275,58 @@ main {
   border-radius: 1rem;
 }
 
+.detailCon {
+  display: none;
+  border: 1.5px solid #5e81f4;
+  border-radius: 0.8rem;
+  height: 50%;
+  padding: 1rem;
+
+  overflow-y: scroll;
+  box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.1);
+}
+.detailCon.show {
+  display: block;
+}
+
+.detailCon::-webkit-scrollbar {
+  /* 스크롤바의 너비 */
+  width: 10px;
+}
+.detailCon::-webkit-scrollbar-thumb {
+  /* 스크롤바의 길이 */
+  height: 10%;
+  /* 스크롤바의 색상 */
+  background: #d9d9d9;
+  border-radius: 10px;
+}
+
+.detailCon::-webkit-scrollbar-track {
+  /*스크롤바 뒷 배경 색상*/
+  background: transparent;
+  border-radius: 10px;
+}
+
+.reserCon {
+  /* border: 1px solid red; */
+  text-align: right;
+  display: none;
+}
+.reserCon.show {
+  /* border: 1px solid red; */
+  display: block;
+}
+
+.reserBtn {
+  padding: 0.5rem 3rem;
+  border-radius: 2rem;
+  border: none;
+  background-color: #5e81f4;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
 .serviceItem {
   display: flex;
   padding: 0.5rem;
@@ -279,10 +334,32 @@ main {
   box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.1);
   margin-bottom: 1rem;
   cursor: pointer;
+  position: relative;
 }
 
 .serviceItem:hover {
   background-color: rgba(94, 129, 244, 0.1);
+}
+
+.condition {
+  /* border: 1px solid red; */
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  padding: 0.3rem 0.7rem;
+  border-radius: 2rem;
+  display: flex;
+  font-size: 0.8rem;
+  background-color: #5e81f4;
+  color: white;
+  font-weight: 500;
+}
+
+.condition.red {
+  background-color: #e85d36;
+}
+.condition.gray {
+  background-color: #666666;
 }
 
 .thumnailWrap {
