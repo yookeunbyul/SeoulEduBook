@@ -46,6 +46,7 @@ const $hamberMenu = document.querySelector(".hamber-menu");
 const $menuBtn = document.querySelector(".menuBtn");
 //[모바일] 닫기 버튼
 const $closeImgBtn = document.querySelector(".close-img-btn");
+const $serachInput = document.querySelector(".serachInput");
 
 function handleLogoClick(e) {
   //로고를 클릭하면 새로고침을 막고 로고를 돌린 후 전체 카테고리 show
@@ -93,6 +94,14 @@ function removeDetail() {
   document.querySelector(".detailCon").classList.remove("show");
   document.querySelector(".reserCon").classList.remove("show");
 }
+
+$serachInput.addEventListener("focus", () => {
+  document.querySelector(".itemWrap").classList.add("focus");
+});
+
+$serachInput.addEventListener("blur", () => {
+  document.querySelector(".itemWrap").classList.remove("focus");
+});
 
 //초기 로드시 화면 크기 확인
 checkScreenSize();
