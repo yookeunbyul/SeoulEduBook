@@ -325,6 +325,7 @@ main {
   color: white;
   font-size: 1rem;
   cursor: pointer;
+  text-decoration: none;
 }
 
 .serviceItem {

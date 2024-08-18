@@ -18,6 +18,25 @@ const searchParams = {
 };
 
 //--------
+//swiper
+var swiper = new Swiper(".mySwiper", {
+  slidesPerView: 8,
+  spaceBetween: 15,
+});
+
+//--------
+//kakao map
+document.addEventListener("DOMContentLoaded", function () {
+  var container = document.getElementById("map");
+  var options = {
+    center: new kakao.maps.LatLng(37.5665, 126.978),
+    level: 3,
+  };
+
+  var map = new kakao.maps.Map(container, options);
+});
+
+//--------
 // ui
 const $logo = document.getElementById("logo");
 const $menuAll = document.querySelector(".menuAll");
@@ -83,6 +102,9 @@ window.addEventListener("resize", checkScreenSize);
 
 //--------
 // api
+let serviceDetailList = {};
+let serviceLinkList = {};
+
 const fetchList = async () => {
   //""이 falsy한 값이라 "%20"
   const newUrl =
@@ -102,6 +124,13 @@ const fetchList = async () => {
     serviceList = data.ListPublicReservationEducation.row;
 
     console.log(data.ListPublicReservationEducation.row);
+
+    serviceList.forEach((service) => {
+      serviceDetailList[service.SVCID] = service.DTLCONT;
+    });
+    serviceList.forEach((service) => {
+      serviceLinkList[service.SVCID] = service.SVCURL;
+    });
 
     renderList(serviceList);
     pagination();
@@ -175,7 +204,7 @@ const createHtml = (service) => {
         service.SVCSTATNM.trim() === "접수종료"
       ? "gray"
       : "";
-  return `<div class="serviceItem">
+  return `<div class="serviceItem" data-id="${service.SVCID}">
               <div class="condition ${conditionClass}">${service.SVCSTATNM.trim()}</div>
               <div class="thumnailWrap">
                 <img src="${service.IMGURL}" alt-="" />
@@ -275,7 +304,12 @@ const $listCon = document.getElementById("listCon");
 $listCon.addEventListener("click", (e) => {
   if (e.target.closest(".serviceItem")) {
     const item = e.target.closest(".serviceItem");
-    console.log(item);
+    const serviceId = item.getAttribute("data-id");
+    const detail = serviceDetailList[serviceId];
+    const link = serviceLinkList[serviceId];
+
+    document.querySelector(".detailCon").innerHTML = detail;
+    document.querySelector(".reserBtn").href = link;
 
     //리스트 클릭하면 디테일창 열어
     addDetail();
