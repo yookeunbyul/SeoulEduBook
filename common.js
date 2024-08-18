@@ -26,15 +26,43 @@ var swiper = new Swiper(".mySwiper", {
 
 //--------
 //kakao map
-document.addEventListener("DOMContentLoaded", function () {
-  var container = document.getElementById("map");
-  var options = {
-    center: new kakao.maps.LatLng(37.5665, 126.978),
-    level: 3,
-  };
+let map;
+let marker;
 
-  var map = new kakao.maps.Map(container, options);
-});
+var mapContainer = document.getElementById("map");
+var mapOption = {
+  center: new kakao.maps.LatLng(37.5665, 126.978),
+  level: 3,
+};
+
+map = new kakao.maps.Map(mapContainer, mapOption);
+
+function panTo(lat, lon) {
+  // 이동할 위도 경도 위치를 생성합니다
+  var moveLatLon = new kakao.maps.LatLng(lat, lon);
+
+  // 지도 중심을 부드럽게 이동시킵니다
+  // 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다
+  map.panTo(moveLatLon);
+}
+
+function makeMarker(lat, lon) {
+  // 기존 마커가 있다면 지도에서 제거합니다
+  if (marker) {
+    marker.setMap(null);
+  }
+
+  // 마커가 표시될 위치입니다
+  var markerPosition = new kakao.maps.LatLng(lat, lon);
+
+  // 마커를 생성합니다
+  marker = new kakao.maps.Marker({
+    position: markerPosition,
+  });
+
+  // 마커가 지도 위에 표시되도록 설정합니다
+  marker.setMap(map);
+}
 
 //--------
 // ui
@@ -113,6 +141,8 @@ window.addEventListener("resize", checkScreenSize);
 // api
 let serviceDetailList = {};
 let serviceLinkList = {};
+let serviceXList = {};
+let serviceYList = {};
 
 const fetchList = async () => {
   //""이 falsy한 값이라 "%20"
@@ -140,6 +170,12 @@ const fetchList = async () => {
     serviceList.forEach((service) => {
       serviceLinkList[service.SVCID] = service.SVCURL;
     });
+    serviceList.forEach((service) => {
+      serviceXList[service.SVCID] = service.X;
+    });
+    serviceList.forEach((service) => {
+      serviceYList[service.SVCID] = service.Y;
+    });
 
     renderList(serviceList);
     pagination();
@@ -159,6 +195,8 @@ const movePage = (pageNum) => {
 
   //리스트 내부 스크롤을 상단으로 이동
   $list.scrollTop = 0;
+
+  panTo(37.5665, 126.978);
 
   fetchList();
 };
@@ -291,6 +329,8 @@ function onClickCategory(e) {
   //리스트 내부 스크롤을 상단으로 이동
   $list.scrollTop = 0;
 
+  panTo(37.5665, 126.978);
+
   //리스트 불러오기
   fetchList();
 
@@ -316,14 +356,21 @@ $listCon.addEventListener("click", (e) => {
     const serviceId = item.getAttribute("data-id");
     const detail = serviceDetailList[serviceId];
     const link = serviceLinkList[serviceId];
+    const serviceX = parseFloat(serviceXList[serviceId]);
+    const serviceY = parseFloat(serviceYList[serviceId]);
 
     document.querySelector(".detailCon").innerHTML = detail;
     document.querySelector(".reserBtn").href = link;
+
+    panTo(serviceY, serviceX);
+    makeMarker(serviceY, serviceX);
 
     //리스트 클릭하면 디테일창 열어
     addDetail();
   }
 });
+
+console.log(serviceXList, serviceYList);
 
 //초기 로드할 때
 fetchList();
