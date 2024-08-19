@@ -153,6 +153,7 @@ function checkScreenSize() {
     $list.scrollTop = 0;
 
     panTo(37.5665, 126.978);
+
     if (marker) {
       marker.setMap(null);
     }
@@ -426,6 +427,10 @@ function onClickCategory(e) {
 
   panTo(37.5665, 126.978);
 
+  if (marker) {
+    marker.setMap(null);
+  }
+
   //리스트 불러오기
   fetchList();
 
@@ -506,7 +511,13 @@ $searchBtn.addEventListener("click", () => {
 
     removeDetail();
     panTo(37.5665, 126.978);
+
+    if (marker) {
+      marker.setMap(null);
+    }
+
     $searchInput.value = "";
+
     fetchList();
 
     console.log(searchParams);
