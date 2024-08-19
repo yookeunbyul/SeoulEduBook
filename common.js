@@ -1,22 +1,6 @@
 import config from "./config.js";
 const { API_KEY } = config;
 
-let pageSize = 15; //한 페이지에 보여지는 리스트 수
-let page = 1; //현재 페이지
-let totalResults = 0; //총 리스트 수
-let groupSize = 3; //한번에 보여지는 페이지
-
-const url = `http://openAPI.seoul.go.kr:8088/${API_KEY}/json/ListPublicReservationEducation/`;
-
-const searchParams = {
-  pageBegin: (page - 1) * pageSize + 1,
-  pageEnd: page * pageSize,
-  minclass: "", // category
-  svcname: "",
-  target: "", // not use
-  area: "",
-};
-
 //--------
 //swiper
 var swiper = new Swiper(".mySwiper", {
@@ -147,8 +131,9 @@ function extractDetails(htmlString) {
 
   //태그를 제거하고 텍스트만 추출
   const plainText = extractedContent
-    .replace(/<\/?[^>]+(>|$)/g, "") // 모든 HTML 태그 제거
-    .replace(/&nbsp;/g, " ") // &nbsp;를 공백으로 변환
+    .replace(/<\/?[^>]+(>|$)/g, "") //모든 HTML 태그 제거
+    .replace(/&nbsp;/g, " ") //&nbsp;를 공백으로 변환
+    .replace(/&crarr;/g, " ") //&crarr;를 공백으로 변환
     .trim();
 
   //텍스트를 평범한 <p> 태그로 감싸기
@@ -160,6 +145,8 @@ function extractDetails(htmlString) {
   if (paragraphs === `<p></p>`) {
     paragraphs = `<p>상세내용은 사이트로 이동하여 확인해주세요.</p>`;
   }
+
+  console.log(paragraphs);
 
   return paragraphs;
 }
@@ -180,6 +167,22 @@ window.addEventListener("resize", checkScreenSize);
 
 //--------
 // api
+let pageSize = 15; //한 페이지에 보여지는 리스트 수
+let page = 1; //현재 페이지
+let totalResults = 0; //총 리스트 수
+let groupSize = 3; //한번에 보여지는 페이지
+
+const url = `http://openAPI.seoul.go.kr:8088/${API_KEY}/json/ListPublicReservationEducation/`;
+
+const searchParams = {
+  pageBegin: (page - 1) * pageSize + 1,
+  pageEnd: page * pageSize,
+  minclass: "", // category
+  svcname: "",
+  target: "", // not use
+  area: "",
+};
+
 let serviceDetailList = {};
 let serviceLinkList = {};
 let serviceXList = {};
@@ -410,8 +413,6 @@ $listCon.addEventListener("click", (e) => {
     addDetail();
   }
 });
-
-console.log(serviceXList, serviceYList);
 
 //초기 로드할 때
 fetchList();
