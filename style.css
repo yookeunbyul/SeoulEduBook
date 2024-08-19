@@ -540,6 +540,81 @@ main {
   border: 0;
   color: white;
 }
+.mobile-detail {
+  display: none;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  z-index: 9999;
+}
+.mobile-detail.show {
+  display: block;
+}
+.close-map-btn {
+  /* border: 1px solid red; */
+  width: 18px;
+  height: 18px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+.close-map-btn > img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.mobile-map {
+  width: 100%;
+}
+.mobile-map-wrap {
+  padding: 0 1.5rem;
+  /* border: 1px solid red; */
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+.mobile-detailCon {
+  border: 1.5px solid #5e81f4;
+  border-radius: 0.8rem;
+  height: 250px;
+  padding: 1rem;
+
+  overflow-y: scroll;
+  box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.1);
+}
+.mobile-detailCon::-webkit-scrollbar {
+  /* 스크롤바의 너비 */
+  width: 10px;
+}
+.mobile-detailCon::-webkit-scrollbar-thumb {
+  /* 스크롤바의 길이 */
+  height: 10%;
+  /* 스크롤바의 색상 */
+  background: #d9d9d9;
+  border-radius: 10px;
+}
+
+.mobile-detailCon::-webkit-scrollbar-track {
+  /*스크롤바 뒷 배경 색상*/
+  background: transparent;
+  border-radius: 10px;
+}
+.mobile-reserCon {
+  text-align: right;
+}
+.mobile-reserBtn {
+  padding: 0.5rem 3rem;
+  border-radius: 2rem;
+  border: none;
+  background-color: #5e81f4;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  text-decoration: none;
+  width: fit-content;
+}
 
 /* 768px 이하 */
 

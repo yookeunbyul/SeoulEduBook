@@ -10,16 +10,24 @@ var swiper = new Swiper(".mySwiper", {
 
 //--------
 //kakao map
-let map;
+let mainMap;
+let mobileMap;
 let marker;
 
-var mapContainer = document.getElementById("map");
-var mapOption = {
+var mainMapContainer = document.getElementById("mainMap");
+var MobileMapContainer = document.getElementById("mobileMap");
+
+var mainMapOption = {
   center: new kakao.maps.LatLng(37.5665, 126.978),
   level: 3,
 };
+var mobileMapOption = {
+  center: new kakao.maps.LatLng(37.5665, 126.978),
+  level: 5,
+};
 
-map = new kakao.maps.Map(mapContainer, mapOption);
+mainMap = new kakao.maps.Map(mainMapContainer, mainMapOption);
+mobileMap = new kakao.maps.Map(MobileMapContainer, mobileMapOption);
 
 function panTo(lat, lon) {
   // 이동할 위도 경도 위치를 생성합니다
@@ -27,7 +35,8 @@ function panTo(lat, lon) {
 
   // 지도 중심을 부드럽게 이동시킵니다
   // 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다
-  map.panTo(moveLatLon);
+  mainMap.panTo(moveLatLon);
+  mobileMap.panTo(moveLatLon);
 }
 
 function makeMarker(lat, lon) {
@@ -45,7 +54,18 @@ function makeMarker(lat, lon) {
   });
 
   // 마커가 지도 위에 표시되도록 설정합니다
-  marker.setMap(map);
+  marker.setMap(mainMap);
+}
+
+function mobileMakeMarker(lat, lon) {
+  if (marker) {
+    marker.setMap(null);
+  }
+  var markerPosition = new kakao.maps.LatLng(lat, lon);
+  marker = new kakao.maps.Marker({
+    position: markerPosition,
+  });
+  marker.setMap(mobileMap);
 }
 
 //--------
@@ -58,7 +78,17 @@ const $hamberMenu = document.querySelector(".hamber-menu");
 const $menuBtn = document.querySelector(".menuBtn");
 //[모바일] 닫기 버튼
 const $closeImgBtn = document.querySelector(".close-img-btn");
+//input
 const $serachInput = document.querySelector(".serachInput");
+
+const $listCon = document.getElementById("listCon");
+const $mobileDetail = document.querySelector(".mobile-detail");
+const $closeMapBtn = document.querySelector(".close-map-btn");
+
+const slides = document.querySelectorAll(".swiper-slide");
+const menuAllBtns = document.querySelectorAll(".menuAll-btn");
+const hamberMenuBtns = document.querySelectorAll(".hamber-menu-btn");
+const $list = document.querySelector(".list");
 
 function handleLogoClick(e) {
   //로고를 클릭하면 새로고침을 막고 로고를 돌린 후 전체 카테고리 show
@@ -72,30 +102,9 @@ function handleMenuToggle() {
   $hamberMenu.classList.toggle("show");
 }
 
-function checkScreenSize() {
-  const screenWidth = window.innerWidth;
-
-  //이벤트 리스너 중복 제거
-  $logo.removeEventListener("click", handleLogoClick);
-  $menuBtn.removeEventListener("click", handleMenuToggle);
-  $closeImgBtn.removeEventListener("click", handleMenuToggle);
-
-  if (screenWidth <= 768) {
-    //768보다 같거나 작으면
-    //연 상태로 작아지면 다 제거
-    $logo.classList.remove("rotate");
-    $menuAll.classList.remove("show");
-    $hamberMenu.classList.remove("show");
-
-    $menuBtn.addEventListener("click", handleMenuToggle);
-    $closeImgBtn.addEventListener("click", handleMenuToggle);
-  } else {
-    //크면
-    $logo.addEventListener("click", handleLogoClick);
-    //연 상태로 커지면 제거
-    $hamberMenu.classList.remove("show");
-  }
-}
+const handleMapToggle = () => {
+  $mobileDetail.classList.toggle("show");
+};
 
 function addDetail() {
   document.querySelector(".detailCon").classList.add("show");
@@ -105,6 +114,47 @@ function addDetail() {
 function removeDetail() {
   document.querySelector(".detailCon").classList.remove("show");
   document.querySelector(".reserCon").classList.remove("show");
+}
+
+function checkScreenSize() {
+  const screenWidth = window.innerWidth;
+
+  //이벤트 리스너 중복 제거
+  $logo.removeEventListener("click", handleLogoClick);
+  $menuBtn.removeEventListener("click", handleMenuToggle);
+  $closeImgBtn.removeEventListener("click", handleMenuToggle);
+  $closeMapBtn.removeEventListener("click", handleMapToggle);
+
+  if (screenWidth <= 768) {
+    //768보다 같거나 작으면
+    //연 상태로 작아지면 다 제거
+    $logo.classList.remove("rotate");
+    $menuAll.classList.remove("show");
+    $hamberMenu.classList.remove("show");
+
+    //리스트 내부 스크롤을 상단으로 이동
+    $list.scrollTop = 0;
+
+    removeDetail();
+
+    $menuBtn.addEventListener("click", handleMenuToggle);
+    $closeImgBtn.addEventListener("click", handleMenuToggle);
+    $closeMapBtn.addEventListener("click", handleMapToggle);
+  } else {
+    //크면
+    $logo.addEventListener("click", handleLogoClick);
+    //연 상태로 커지면 제거
+    $hamberMenu.classList.remove("show");
+    $mobileDetail.classList.remove("show");
+
+    //리스트 내부 스크롤을 상단으로 이동
+    $list.scrollTop = 0;
+
+    panTo(37.5665, 126.978);
+    if (marker) {
+      marker.setMap(null);
+    }
+  }
 }
 
 function extractDetails(htmlString) {
@@ -145,8 +195,6 @@ function extractDetails(htmlString) {
   if (paragraphs === `<p></p>`) {
     paragraphs = `<p>상세내용은 사이트로 이동하여 확인해주세요.</p>`;
   }
-
-  console.log(paragraphs);
 
   return paragraphs;
 }
@@ -338,11 +386,6 @@ const renderList = (serviceList) => {
   document.getElementById("listCon").innerHTML = serviceHtml;
 };
 
-const slides = document.querySelectorAll(".swiper-slide");
-const menuAllBtns = document.querySelectorAll(".menuAll-btn");
-const hamberMenuBtns = document.querySelectorAll(".hamber-menu-btn");
-const $list = document.querySelector(".list");
-
 function onClickCategory(e) {
   //클릭한 버튼
   const target = e.target;
@@ -391,26 +434,43 @@ function onClickCategory(e) {
   btn.addEventListener("click", onClickCategory);
 });
 
-const $listCon = document.getElementById("listCon");
-
 //이벤트 위임 => 모든 자식 콘텐츠에 리스너를 박는게 아니라 부모 요소에 붙여준다
 $listCon.addEventListener("click", (e) => {
-  if (e.target.closest(".serviceItem")) {
-    const item = e.target.closest(".serviceItem");
-    const serviceId = item.getAttribute("data-id");
-    const detail = serviceDetailList[serviceId];
-    const link = serviceLinkList[serviceId];
-    const serviceX = parseFloat(serviceXList[serviceId]);
-    const serviceY = parseFloat(serviceYList[serviceId]);
+  const screenWidth = window.innerWidth;
+  const item = e.target.closest(".serviceItem");
+  const serviceId = item.getAttribute("data-id");
+  const detail = serviceDetailList[serviceId];
+  const link = serviceLinkList[serviceId];
+  const serviceX = parseFloat(serviceXList[serviceId]);
+  const serviceY = parseFloat(serviceYList[serviceId]);
 
-    document.querySelector(".detailCon").innerHTML = extractDetails(detail);
-    document.querySelector(".reserBtn").href = link;
+  if (screenWidth <= 768) {
+    //768px이랑 같거나 작으면
+    handleMapToggle();
+    mobileMap.relayout();
+
+    document.querySelector(".mobile-detailCon").innerHTML =
+      extractDetails(detail);
+    document.querySelector(".mobile-reserBtn").href = link;
+
+    document.querySelector(".mobile-detailCon").scrollTop = 0;
 
     panTo(serviceY, serviceX);
-    makeMarker(serviceY, serviceX);
+    mobileMakeMarker(serviceY, serviceX);
+  } else {
+    //크면
+    if (e.target.closest(".serviceItem")) {
+      document.querySelector(".detailCon").innerHTML = extractDetails(detail);
+      document.querySelector(".reserBtn").href = link;
 
-    //리스트 클릭하면 디테일창 열어
-    addDetail();
+      panTo(serviceY, serviceX);
+      makeMarker(serviceY, serviceX);
+
+      document.querySelector(".detailCon").scrollTop = 0;
+
+      //리스트 클릭하면 디테일창 열어
+      addDetail();
+    }
   }
 });
 
