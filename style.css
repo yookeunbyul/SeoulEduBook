@@ -175,7 +175,7 @@ main {
 
 .itemWrap {
   border: 1px solid #d3d3d3;
-  width: 100%;
+  width: 93.7%;
   display: flex;
   align-items: center;
   border-radius: 0.5rem;
@@ -197,7 +197,7 @@ main {
 .itemWrap > input {
   border: none;
   outline: none;
-  width: 80%;
+  width: 100%;
   padding-left: 1.5rem;
   color: #3e4958;
   font-size: 0.9rem;
@@ -648,6 +648,9 @@ main {
   h1 a > img {
     margin-left: 0.5rem;
     /* border: 1px solid red; */
+  }
+  .itemWrap {
+    width: 100%;
   }
   .menuBtn {
     display: block;
