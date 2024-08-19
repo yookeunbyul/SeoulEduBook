@@ -78,8 +78,6 @@ const $hamberMenu = document.querySelector(".hamber-menu");
 const $menuBtn = document.querySelector(".menuBtn");
 //[모바일] 닫기 버튼
 const $closeImgBtn = document.querySelector(".close-img-btn");
-//input
-const $serachInput = document.querySelector(".serachInput");
 
 const $listCon = document.getElementById("listCon");
 const $mobileDetail = document.querySelector(".mobile-detail");
@@ -89,6 +87,10 @@ const slides = document.querySelectorAll(".swiper-slide");
 const menuAllBtns = document.querySelectorAll(".menuAll-btn");
 const hamberMenuBtns = document.querySelectorAll(".hamber-menu-btn");
 const $list = document.querySelector(".list");
+
+const $searchBtn = document.querySelector(".searchBtn");
+const $locaSelect = document.querySelector(".locaSelect");
+const $searchInput = document.querySelector(".searchInput");
 
 function handleLogoClick(e) {
   //로고를 클릭하면 새로고침을 막고 로고를 돌린 후 전체 카테고리 show
@@ -199,11 +201,11 @@ function extractDetails(htmlString) {
   return paragraphs;
 }
 
-$serachInput.addEventListener("focus", () => {
+$searchInput.addEventListener("focus", () => {
   document.querySelector(".itemWrap").classList.add("focus");
 });
 
-$serachInput.addEventListener("blur", () => {
+$searchInput.addEventListener("blur", () => {
   document.querySelector(".itemWrap").classList.remove("focus");
 });
 
@@ -236,6 +238,9 @@ let serviceLinkList = {};
 let serviceXList = {};
 let serviceYList = {};
 
+let selectItem = "";
+let searchValue = "";
+
 const fetchList = async () => {
   //""이 falsy한 값이라 "%20"
   const newUrl =
@@ -258,21 +263,20 @@ const fetchList = async () => {
 
     serviceList.forEach((service) => {
       serviceDetailList[service.SVCID] = service.DTLCONT;
-    });
-    serviceList.forEach((service) => {
       serviceLinkList[service.SVCID] = service.SVCURL;
-    });
-    serviceList.forEach((service) => {
       serviceXList[service.SVCID] = service.X;
-    });
-    serviceList.forEach((service) => {
       serviceYList[service.SVCID] = service.Y;
     });
-
     renderList(serviceList);
+    document.querySelector(".pagination").classList.remove("hidden");
     pagination();
   } catch (e) {
     console.error(e);
+    //리스트가 없는 경우 처리?
+    document.getElementById("listCon").innerHTML = `
+      <div class='error'><p>검색결과가 없습니다.</p></div>
+      `;
+    document.querySelector(".pagination").classList.add("hidden");
   }
 };
 
@@ -343,10 +347,11 @@ const createHtml = (service) => {
         service.SVCSTATNM.trim() === "접수종료"
       ? "gray"
       : "";
+
   return `<div class="serviceItem" data-id="${service.SVCID}">
               <div class="condition ${conditionClass}">${service.SVCSTATNM.trim()}</div>
               <div class="thumnailWrap">
-                <img src="${service.IMGURL}" alt-="" />
+                <img src="${service.IMGURL.trim()}" alt-="" />
               </div>
               <div class="serviceDetailWrap">
                 <p class="serviceTitle">
@@ -413,6 +418,9 @@ function onClickCategory(e) {
   searchParams.pageBegin = (page - 1) * pageSize + 1;
   searchParams.pageEnd = page * pageSize;
 
+  searchParams.area = selectItem === "지역명" ? "" : selectItem;
+  searchParams.svcname = searchValue === "" ? "" : searchValue;
+
   //리스트 내부 스크롤을 상단으로 이동
   $list.scrollTop = 0;
 
@@ -427,6 +435,8 @@ function onClickCategory(e) {
 
   //카테고리 바뀌면 디테일 창도 닫아줘
   removeDetail();
+
+  console.log(searchParams);
 }
 
 //모든 버튼에 이벤트리스너 붙이기
@@ -471,6 +481,37 @@ $listCon.addEventListener("click", (e) => {
       //리스트 클릭하면 디테일창 열어
       addDetail();
     }
+  }
+
+  console.log(searchParams);
+});
+
+$locaSelect.addEventListener("change", (e) => {
+  selectItem = e.target.value;
+});
+
+$searchBtn.addEventListener("click", () => {
+  try {
+    searchValue = $searchInput.value;
+    searchParams.area = selectItem === "지역명" ? "" : selectItem;
+    searchParams.svcname = searchValue === "" ? "" : searchValue;
+
+    //페이지 번호를 1로 리셋
+    page = 1;
+    searchParams.pageBegin = (page - 1) * pageSize + 1;
+    searchParams.pageEnd = page * pageSize;
+
+    //리스트 내부 스크롤을 상단으로 이동
+    $list.scrollTop = 0;
+
+    removeDetail();
+    panTo(37.5665, 126.978);
+    $searchInput.value = "";
+    fetchList();
+
+    console.log(searchParams);
+  } catch (e) {
+    console.error(e);
   }
 });
 

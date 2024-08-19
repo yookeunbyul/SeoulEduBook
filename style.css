@@ -180,6 +180,7 @@ main {
   align-items: center;
   border-radius: 0.5rem;
   box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.1);
+  position: relative;
 }
 
 .itemWrap.focus {
@@ -200,9 +201,9 @@ main {
   padding-left: 1.5rem;
   color: #3e4958;
   font-size: 0.9rem;
+  /* border: 1px solid red; */
 }
-
-.itemWrap > button {
+.searchBtn {
   border: none;
   background-color: #5e81f4;
   padding: 0.8rem 1rem;
@@ -210,7 +211,7 @@ main {
   cursor: pointer;
 }
 
-.itemWrap > button > img {
+.searchBtn > img {
   width: 26px;
   height: 26px;
 }
@@ -443,6 +444,9 @@ main {
   gap: 0.5rem;
   padding: 1rem 0;
 }
+.pagination.hidden {
+  display: none;
+}
 
 .arrow {
   width: 18px;
@@ -614,6 +618,20 @@ main {
   cursor: pointer;
   text-decoration: none;
   width: fit-content;
+}
+
+.error {
+  background-color: #e6e6e6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+  background-color: rgba(94, 129, 244, 0.1);
+  height: 70vh;
+}
+
+.error > p {
+  color: #666666;
 }
 
 /* 768px 이하 */
