@@ -73,19 +73,19 @@ function mobileMakeMarker(lat, lon) {
 const $logo = document.getElementById("logo");
 const $menuAll = document.querySelector(".menuAll");
 //[모바일] 햄버거 메뉴(카테고리 영역)
-const $hamberMenu = document.querySelector(".hamber-menu");
+const $hamberMenu = document.querySelector(".hamberMenu");
 //[모바일] 햄버거 메뉴 버튼
 const $menuBtn = document.querySelector(".menuBtn");
 //[모바일] 닫기 버튼
-const $closeImgBtn = document.querySelector(".close-img-btn");
+const $closeImgBtn = document.querySelector(".closeImgBtn");
 
 const $listCon = document.getElementById("listCon");
-const $mobileDetail = document.querySelector(".mobile-detail");
-const $closeMapBtn = document.querySelector(".close-map-btn");
+const $mobileDetail = document.querySelector(".mobileDetail");
+const $closeMapBtn = document.querySelector(".closeMapBtn");
 
 const slides = document.querySelectorAll(".swiper-slide");
-const menuAllBtns = document.querySelectorAll(".menuAll-btn");
-const hamberMenuBtns = document.querySelectorAll(".hamber-menu-btn");
+const menuAllBtns = document.querySelectorAll(".menuAllBtn");
+const hamberMenuBtns = document.querySelectorAll(".hamberMenuBtn");
 const $list = document.querySelector(".list");
 
 const $searchBtn = document.querySelector(".searchBtn");
@@ -459,11 +459,11 @@ $listCon.addEventListener("click", (e) => {
     handleMapToggle();
     mobileMap.relayout();
 
-    document.querySelector(".mobile-detailCon").innerHTML =
+    document.querySelector(".mobileDetailCon").innerHTML =
       extractDetails(detail);
-    document.querySelector(".mobile-reserBtn").href = link;
+    document.querySelector(".mobileReserBtn").href = link;
 
-    document.querySelector(".mobile-detailCon").scrollTop = 0;
+    document.querySelector(".mobileDetailCon").scrollTop = 0;
 
     panTo(serviceY, serviceX);
     mobileMakeMarker(serviceY, serviceX);
