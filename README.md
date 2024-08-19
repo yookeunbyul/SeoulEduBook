@@ -108,3 +108,14 @@ https://www.figma.com/design/YAJQURZg82WWhZElTCZECN/7%ED%8C%80-%EC%95%BD%EC%8B%9
 
   함수를 window 객체에 할당하면 전역 범위에서 접근할 수 있게 됩니다.
   ```
+
+- 08/19 : kakao.js:121 Uncaught TypeError: a.Lf is not a function
+
+  ```
+  원인
+  map = new kakao.maps.Map(mapContainer, mapOption);
+  이 코드를 함수 안에 넣어서 컨트롤이 map에 접근 못하는 오류입니다.
+
+  해결 방법
+  전역 변수로 설정하면 해결할 수 있습니다.
+  ```
