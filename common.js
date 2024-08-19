@@ -123,6 +123,47 @@ function removeDetail() {
   document.querySelector(".reserCon").classList.remove("show");
 }
 
+function extractDetails(htmlString) {
+  const startTag = "<p>3. 상세내용</p>";
+  const endTag = "<p>4. 주의사항</p>";
+
+  //시작 태그의 위치를 찾습니다.
+  const startIndex = htmlString.indexOf(startTag);
+  if (startIndex === -1) return ""; //시작 태그가 없으면 빈 문자열 반환
+
+  //시작 태그 이후의 위치로 이동합니다.
+  const startContentIndex = startIndex + startTag.length;
+
+  //종료 태그의 위치를 찾습니다.
+  //indexOf(searchElement, fromIndex)
+  const endIndex = htmlString.indexOf(endTag, startContentIndex);
+  if (endIndex === -1) return ""; // 종료 태그가 없으면 빈 문자열 반환
+
+  //두 태그 사이의 내용을 추출합니다.
+  let extractedContent = htmlString.slice(startContentIndex, endIndex).trim();
+
+  //정규식을 사용하여 모든 <img> 태그를 제거합니다.
+  extractedContent = extractedContent.replace(/<img[^>]*>/g, "");
+
+  //태그를 제거하고 텍스트만 추출
+  const plainText = extractedContent
+    .replace(/<\/?[^>]+(>|$)/g, "") // 모든 HTML 태그 제거
+    .replace(/&nbsp;/g, " ") // &nbsp;를 공백으로 변환
+    .trim();
+
+  //텍스트를 평범한 <p> 태그로 감싸기
+  let paragraphs = plainText
+    .split(/\n+/)
+    .map((line) => `<p>${line.trim()}</p>`)
+    .join("\n");
+
+  if (paragraphs === `<p></p>`) {
+    paragraphs = `<p>상세내용은 사이트로 이동하여 확인해주세요.</p>`;
+  }
+
+  return paragraphs;
+}
+
 $serachInput.addEventListener("focus", () => {
   document.querySelector(".itemWrap").classList.add("focus");
 });
@@ -359,7 +400,7 @@ $listCon.addEventListener("click", (e) => {
     const serviceX = parseFloat(serviceXList[serviceId]);
     const serviceY = parseFloat(serviceYList[serviceId]);
 
-    document.querySelector(".detailCon").innerHTML = detail;
+    document.querySelector(".detailCon").innerHTML = extractDetails(detail);
     document.querySelector(".reserBtn").href = link;
 
     panTo(serviceY, serviceX);
