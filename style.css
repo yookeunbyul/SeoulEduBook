@@ -249,10 +249,10 @@ main {
 .list::-webkit-scrollbar {
   /* 스크롤바의 너비 */
   width: 10px;
-}
-.list::-webkit-scrollbar-thumb {
   /* 스크롤바의 길이 */
   height: 10%;
+}
+.list::-webkit-scrollbar-thumb {
   /* 스크롤바의 색상 */
   background: #d9d9d9;
   border-radius: 10px;
@@ -297,10 +297,10 @@ main {
 .detailCon::-webkit-scrollbar {
   /* 스크롤바의 너비 */
   width: 10px;
-}
-.detailCon::-webkit-scrollbar-thumb {
   /* 스크롤바의 길이 */
   height: 10%;
+}
+.detailCon::-webkit-scrollbar-thumb {
   /* 스크롤바의 색상 */
   background: #d9d9d9;
   border-radius: 10px;
@@ -591,10 +591,10 @@ main {
 .mobileDetailCon::-webkit-scrollbar {
   /* 스크롤바의 너비 */
   width: 10px;
-}
-.mobileDetailCon::-webkit-scrollbar-thumb {
   /* 스크롤바의 길이 */
   height: 10%;
+}
+.mobileDetailCon::-webkit-scrollbar-thumb {
   /* 스크롤바의 색상 */
   background: #d9d9d9;
   border-radius: 10px;
