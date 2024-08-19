@@ -1,5 +1,7 @@
 # 서울특별시 교육 공공서비스예약
 
+<img width="1013" alt="화면 캡처 2024-08-20 083924" src="https://github.com/user-attachments/assets/72c86af5-e4c4-4d2d-a5ba-ad1a841430e1">
+
 ### 웹 사이트의 제작의 목적은?
 
 서울특별시 교육 공공서비스를 안내하고 빠르게 예약할 수 있도록 돕는 것입니다.
