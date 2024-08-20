@@ -156,6 +156,8 @@ main {
   width: 80%;
   margin: auto;
   padding: 0.5rem;
+  /* border: 1px solid red; */
+  padding-right: 1rem;
 }
 
 .sec1 {
@@ -242,7 +244,7 @@ main {
   /* border: 1px solid blue; */
   width: 40%;
   overflow-y: scroll;
-  height: 70vh;
+  height: 72vh;
   padding: 0.2rem 2rem 0 0.5rem;
 }
 
@@ -267,7 +269,7 @@ main {
 .map {
   /* border: 1px solid blue; */
   width: 60%;
-  height: 70vh;
+  height: 72vh;
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -629,7 +631,7 @@ main {
   justify-content: center;
   border-radius: 0.5rem;
   background-color: rgba(94, 129, 244, 0.1);
-  height: 70vh;
+  height: 72vh;
 }
 
 .error > p {
