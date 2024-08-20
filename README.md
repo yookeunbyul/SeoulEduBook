@@ -1,6 +1,6 @@
 # 서울특별시 교육 공공서비스예약
 
-<img width="1013" alt="화면 캡처 2024-08-20 083924" src="https://github.com/user-attachments/assets/72c86af5-e4c4-4d2d-a5ba-ad1a841430e1">
+<img width="1021" alt="화면 캡처 2024-08-20 092015" src="https://github.com/user-attachments/assets/1e0ff8cb-d8fb-4c55-a14e-f87ca75a5da5">
 
 ### 웹 사이트의 제작의 목적은?
 
