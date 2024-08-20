@@ -216,6 +216,17 @@ checkScreenSize();
 //화면 크기 변경 시마다 확인
 window.addEventListener("resize", checkScreenSize);
 
+//-----
+//과도한 API 요청을 막기위해 debounce 사용
+function debounce(func, wait) {
+  let timeout;
+  return function (...args) {
+    //이전에 설정된 타이머 초기화
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func.apply(this, args), wait);
+  };
+}
+
 //--------
 // api
 let pageSize = 15; //한 페이지에 보여지는 리스트 수
@@ -444,9 +455,11 @@ function onClickCategory(e) {
   console.log(searchParams);
 }
 
+const debouncedOnClickCategory = debounce(onClickCategory, 300);
+
 //모든 버튼에 이벤트리스너 붙이기
 [...slides, ...menuAllBtns, ...hamberMenuBtns].forEach((btn) => {
-  btn.addEventListener("click", onClickCategory);
+  btn.addEventListener("click", debouncedOnClickCategory);
 });
 
 //이벤트 위임 => 모든 자식 콘텐츠에 리스너를 박는게 아니라 부모 요소에 붙여준다
@@ -495,36 +508,39 @@ $locaSelect.addEventListener("change", (e) => {
   selectItem = e.target.value;
 });
 
-$searchBtn.addEventListener("click", () => {
-  try {
-    searchValue = $searchInput.value;
-    searchParams.area = selectItem === "지역명" ? "" : selectItem;
-    searchParams.svcname = searchValue === "" ? "" : searchValue;
+$searchBtn.addEventListener(
+  "click",
+  debounce(() => {
+    try {
+      searchValue = $searchInput.value;
+      searchParams.area = selectItem === "지역명" ? "" : selectItem;
+      searchParams.svcname = searchValue === "" ? "" : searchValue;
 
-    //페이지 번호를 1로 리셋
-    page = 1;
-    searchParams.pageBegin = (page - 1) * pageSize + 1;
-    searchParams.pageEnd = page * pageSize;
+      //페이지 번호를 1로 리셋
+      page = 1;
+      searchParams.pageBegin = (page - 1) * pageSize + 1;
+      searchParams.pageEnd = page * pageSize;
 
-    //리스트 내부 스크롤을 상단으로 이동
-    $list.scrollTop = 0;
+      //리스트 내부 스크롤을 상단으로 이동
+      $list.scrollTop = 0;
 
-    removeDetail();
-    panTo(37.5665, 126.978);
+      removeDetail();
+      panTo(37.5665, 126.978);
 
-    if (marker) {
-      marker.setMap(null);
+      if (marker) {
+        marker.setMap(null);
+      }
+
+      $searchInput.value = "";
+
+      fetchList();
+
+      console.log(searchParams);
+    } catch (e) {
+      console.error(e);
     }
-
-    $searchInput.value = "";
-
-    fetchList();
-
-    console.log(searchParams);
-  } catch (e) {
-    console.error(e);
-  }
-});
+  }, 300) //누르고 또 누르는 경우를 방지
+);
 
 //초기 로드할 때
 fetchList();
